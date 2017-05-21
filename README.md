@@ -45,6 +45,16 @@ effect.apply('foo bar baz')
 ~~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
 
+### Composition
+~~~~
+underline = AnsiEscape::Effects::Underline.new
+red_text = AnsiEscape::Effects::TextColor.new(:red)
+green_background = AnsiEscape::Effects::BackgroundColor.new(:green)
+effect = AnsiEscape::Effects::Composition.new(underline, red_text, green_background)
+effect.apply('foo bar baz')
+ => "\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m"
+~~~~
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
