@@ -3,8 +3,9 @@ module ANSIEscape
     def initialize(raw_text)
       @raw_text = raw_text
 
-      # maps each effect to an array of the start/stop ranges of that effect
-      @effect_ranges = {}
+      # each array element corresponds to the same location in the raw_text and
+      # contains either nil or an array of effects on that character
+      @effects_map = []
     end
 
     def raw_text
@@ -12,11 +13,14 @@ module ANSIEscape
     end
 
     def add_effect(effect, range)
-      # TODO: deal with overlaps and conflicting effects! (e.g. new green text range overlapping with an existing red text range)
+      # TODO: deal with overlaps and conflicting effects! (e.g. new green text
+      # range overlapping with an existing red text range)
       # TODO: range validation
       # TODO: handle Compositions
-      @effect_ranges[effect] ||= []
-      @effect_ranges[effect] << range
+      range.each do |i|
+        @effects_map[i] ||= Set.new
+        @effects_map[i].add(effect)
+      end
     end
 
     def remove_effect(effect, range)
@@ -39,42 +43,38 @@ module ANSIEscape
     end
 
     def to_s
-      start_sequences = {}
-      stop_sequences = {}
-
-      @effect_ranges.each_pair do |effect, ranges|
-        ranges.each do |range|
-          start_sequences[range.first] ||= []
-          start_sequences[range.first] << effect.start_sequence
-          stop_sequences[range.last] ||= []
-          stop_sequences[range.last] << effect.stop_sequence
-        end
-      end
-
-      positions = (start_sequences.keys + stop_sequences.keys).uniq.sort
-      cursor_position = 0
+      # build the output string by iterating through each of the characters in
+      # the raw_text, applying effects while keeping track of which effects are
+      # active and appending start and stop sequences accordingly
+      active_effects = Set.new
       result = ''
 
-      positions.each do |position|
-        if start_sequences[position]
-          if cursor_position < position
-            result += raw_text[cursor_position..(position - 1)]
-          end
-          start_sequences[position].each do |sequence|
-            result += sequence
-          end
-          cursor_position = position
+      (0..(raw_text.length - 1)).each do |i|
+        expected_effects = @effects_map[i] || Set.new
+        effects_to_start = expected_effects - active_effects
+        effects_to_stop = active_effects - expected_effects
+
+        # append end sequence for effects that should no longer be active
+        effects_to_stop.each do |effect|
+          result += effect.stop_sequence
+          active_effects.delete(effect)
         end
-        result += raw_text[cursor_position..position]
-        if stop_sequences[position]
-          stop_sequences[position].each do |sequence|
-            result += sequence
-          end
+
+        # append start sequence for new effects that are not yet active
+        effects_to_start.each do |effect|
+          result += effect.start_sequence
+          active_effects.add(effect)
         end
-        cursor_position = position + 1
+
+        # append the character itself!
+        result += raw_text[i]
       end
 
-      result += raw_text[cursor_position, raw_text.length]
+      # any remaining active effects need to be stopped
+      active_effects.each do |effect|
+        result += effect.stop_sequence
+      end
+
       result
     end
   end
