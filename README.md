@@ -71,7 +71,7 @@ Adds the specified effect to the given range of character indexes. This can caus
 Removes the specified effect from the given range of character indexes. `stop` is optional. If it is not provided, the effect will be removed from a single character.
 
 ##### effects_at(index)
-Returns an array of the active effects at a particular index in the string. In the example above, effects_at(0) will return [], effects_at(5) will return `[underline, red_text, and green_background]`.
+Returns an array of the active effects at a particular index in the string. In the example above, effects_at(0) will return [], effects_at(5) will return `[underline, red_text, green_background]`.
 
 ##### to_s
 Outputs a string that can be printed to the terminal.
