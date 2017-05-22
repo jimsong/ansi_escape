@@ -22,14 +22,14 @@ RSpec.describe ANSIEscape::FormattedString do
 
   describe '#add_effect' do
     it 'adds the specified effect to the provided range of indexes' do
-      formatted_string.add_effect(red_text, 4..6)
+      formatted_string.add_effect(red_text, 4, 6)
       expect(formatted_string.effects_at(4)).to eq([red_text])
       expect(formatted_string.effects_at(5)).to eq([red_text])
       expect(formatted_string.effects_at(6)).to eq([red_text])
     end
 
     it 'does not add the specified effect outside the provided range of indexes' do
-      formatted_string.add_effect(red_text, 4..6)
+      formatted_string.add_effect(red_text, 4, 6)
       expect(formatted_string.effects_at(3)).to eq([])
       expect(formatted_string.effects_at(7)).to eq([])
     end
@@ -37,20 +37,27 @@ RSpec.describe ANSIEscape::FormattedString do
     it 'replaces effects of the same type' do
       green_text = ANSIEscape::Effects::TextColor.new(:green)
       blue_text = ANSIEscape::Effects::TextColor.new(:blue)
-      formatted_string.add_effect(red_text, 0..10)
-      formatted_string.add_effect(green_text, 4..4)
-      formatted_string.add_effect(blue_text, 5..5)
+      formatted_string.add_effect(red_text, 0, 10)
+      formatted_string.add_effect(green_text, 4, 4)
+      formatted_string.add_effect(blue_text, 5, 5)
       expect(formatted_string.effects_at(3)).to eq([red_text])
       expect(formatted_string.effects_at(4)).to eq([green_text])
       expect(formatted_string.effects_at(5)).to eq([blue_text])
       expect(formatted_string.effects_at(6)).to eq([red_text])
     end
+
+    it 'works with single index provided' do
+      formatted_string.add_effect(red_text, 5)
+      expect(formatted_string.effects_at(4)).to eq([])
+      expect(formatted_string.effects_at(5)).to eq([red_text])
+      expect(formatted_string.effects_at(6)).to eq([])
+    end
   end
 
   describe '#remove_effect' do
     it 'removes the specified effect from the provided range of indexes' do
-      formatted_string.add_effect(red_text, 0..10)
-      formatted_string.remove_effect(red_text, 4..6)
+      formatted_string.add_effect(red_text, 0, 10)
+      formatted_string.remove_effect(red_text, 4, 6)
       expect(formatted_string.effects_at(3)).to eq([red_text])
       expect(formatted_string.effects_at(4)).to eq([])
       expect(formatted_string.effects_at(5)).to eq([])
@@ -59,25 +66,33 @@ RSpec.describe ANSIEscape::FormattedString do
     end
 
     it 'does not remove other effects' do
-      formatted_string.add_effect(red_text, 0..10)
-      formatted_string.add_effect(green_background, 0..10)
-      formatted_string.remove_effect(red_text, 4..6)
+      formatted_string.add_effect(red_text, 0, 10)
+      formatted_string.add_effect(green_background, 0, 10)
+      formatted_string.remove_effect(red_text, 4, 6)
       expect(formatted_string.effects_at(4)).to eq([green_background])
     end
 
     it 'does not remove other effects of the same class' do
-      formatted_string.add_effect(red_text, 0..10)
+      formatted_string.add_effect(red_text, 0, 10)
       green_text = ANSIEscape::Effects::TextColor.new(:green)
-      formatted_string.remove_effect(green_text, 4..6)
+      formatted_string.remove_effect(green_text, 4, 6)
       expect(formatted_string.effects_at(4)).to eq([red_text])
+    end
+
+    it 'works with single index provided' do
+      formatted_string.add_effect(red_text, 0, 10)
+      formatted_string.remove_effect(red_text, 5)
+      expect(formatted_string.effects_at(4)).to eq([red_text])
+      expect(formatted_string.effects_at(5)).to eq([])
+      expect(formatted_string.effects_at(6)).to eq([red_text])
     end
   end
 
   describe '#effects_at' do
     before do
-      formatted_string.add_effect(underline, 4..6)
-      formatted_string.add_effect(red_text, 4..6)
-      formatted_string.add_effect(green_background, 4..6)
+      formatted_string.add_effect(underline, 4, 6)
+      formatted_string.add_effect(red_text, 4, 6)
+      formatted_string.add_effect(green_background, 4, 6)
     end
 
     it 'returns an array of effects active at the given index' do

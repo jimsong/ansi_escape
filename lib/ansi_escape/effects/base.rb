@@ -10,7 +10,7 @@ module ANSIEscape
 
       def apply_to(string)
         fs = FormattedString.new(string)
-        fs.add_effect(self, 0..(string.length - 1))
+        fs.add_effect(self, 0, string.length - 1)
         fs
       end
 

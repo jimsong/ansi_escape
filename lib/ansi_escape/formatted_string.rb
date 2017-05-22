@@ -12,8 +12,9 @@ module ANSIEscape
       @raw_text.dup # so no one can mutate the text and cause inconsistencies!
     end
 
-    def add_effect(effect, range)
+    def add_effect(effect, start, stop = start)
       # TODO: range validation
+      range = start..stop
       range.each do |i|
         @effects_map[i] ||= Set.new
 
@@ -25,8 +26,9 @@ module ANSIEscape
       end
     end
 
-    def remove_effect(effect, range)
+    def remove_effect(effect, start, stop = start)
       # TODO: range validation
+      range = start..stop
       range.each do |i|
         @effects_map[i] ||= Set.new
         @effects_map[i].delete(effect)
@@ -77,6 +79,19 @@ module ANSIEscape
 
     def print
       puts to_s
+    end
+
+    private
+
+    def validate_range(start, stop)
+      length = raw_text.length
+      if !start.is_a?(Integer) || start < 0 || start >= length
+        raise ArgumentError, "start must be an integer in 0..#{length - 1}"
+      end
+
+      if !stop.is_a?(Integer) || stop < start || stop >= rlength
+        raise ArgumentError, "start must be an integer in #{start}..#{length - 1}"
+      end
     end
   end
 end
