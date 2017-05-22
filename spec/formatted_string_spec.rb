@@ -57,6 +57,20 @@ RSpec.describe ANSIEscape::FormattedString do
       expect(formatted_string.effects_at(6)).to eq([])
       expect(formatted_string.effects_at(7)).to eq([red_text])
     end
+
+    it 'does not remove other effects' do
+      formatted_string.add_effect(red_text, 0..10)
+      formatted_string.add_effect(green_background, 0..10)
+      formatted_string.remove_effect(red_text, 4..6)
+      expect(formatted_string.effects_at(4)).to eq([green_background])
+    end
+
+    it 'does not remove other effects of the same class' do
+      formatted_string.add_effect(red_text, 0..10)
+      green_text = ANSIEscape::Effects::TextColor.new(:green)
+      formatted_string.remove_effect(green_text, 4..6)
+      expect(formatted_string.effects_at(4)).to eq([red_text])
+    end
   end
 
   describe '#effects_at' do
