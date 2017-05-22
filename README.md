@@ -21,8 +21,10 @@ Or install it yourself as:
 ## Usage
 
 ### Effects
+Effects are defined in lib/ansi_escape/effects and inherit from abstract base class `ANSIEscape::Effects::Base`.
 
-Effects are defined in lib/ansi_escape/effects and can be applied to strings. Calling apply_to on a string will return an ANSIEscape::FormattedString. Examples of how to do this are shown below.
+#### apply_to(string)
+The `apply_to` method on an effect instance takes a `String` or `ANSIEscape::FormattedString` and returns an `ANSIEscape::FormattedString` with the effect applied on the entire input string. Examples of how to do this are shown below.
 
 #### Underline
 ~~~
