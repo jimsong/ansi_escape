@@ -59,7 +59,7 @@ effect.apply('foo bar baz')
 ~~~
 
 ### FormattedString
-Example:
+#### Example
 ~~~
 underline = ANSIEscape::Effects::Underline.new
 red_text = ANSIEscape::Effects::TextColor.new(:red)
@@ -72,6 +72,16 @@ fs.to_s
  => "f\e[31moo \e[4mb\e[42ma\e[39mr\e[24m b\e[49maz"
 ~~~
 When printed to the console, "bar" will be underlined, "oo ba" will have red text, and "ar b" will have a green background
+
+#### Methods
+
+##### add_effect(effect, start, stop)
+
+##### remove_effect(effect, start, stop)
+_NOT YET IMPLEMENTED!_
+
+##### effects_at(position)
+returns an array of the active effects at a particular position in the string. In the example above, effects_at(0) will return [], effects_at(5) will return [underline, red_text, and green_background]
 
 ## Development
 

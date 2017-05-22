@@ -23,6 +23,17 @@ module ANSIEscape
       # TODO: implement!
     end
 
+    # returns all the active effects at a given position in the string
+    def effects_at(position)
+      result = []
+      @effect_ranges.each_pair do |effect, ranges|
+        if ranges.any? { |range| range.include?(position) }
+          result << effect
+        end
+      end
+      result
+    end
+
     def to_s
       start_sequences = {}
       stop_sequences = {}
