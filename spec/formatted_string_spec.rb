@@ -47,6 +47,18 @@ RSpec.describe ANSIEscape::FormattedString do
     end
   end
 
+  describe '#remove_effect' do
+    it 'removes the specified effect from the provided range of indexes' do
+      formatted_string.add_effect(red_text, 0..10)
+      formatted_string.remove_effect(red_text, 4..6)
+      expect(formatted_string.effects_at(3)).to eq([red_text])
+      expect(formatted_string.effects_at(4)).to eq([])
+      expect(formatted_string.effects_at(5)).to eq([])
+      expect(formatted_string.effects_at(6)).to eq([])
+      expect(formatted_string.effects_at(7)).to eq([red_text])
+    end
+  end
+
   describe '#effects_at' do
     before do
       formatted_string.add_effect(underline, 4..6)
