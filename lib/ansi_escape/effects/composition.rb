@@ -7,8 +7,8 @@ module ANSIEscape
         @effects = effects
       end
 
-      def apply(string)
-        effects.inject(string) { |s, effect| effect.apply(s) }
+      def apply_to(string)
+        effects.inject(string) { |s, effect| effect.apply_to(s) }
       end
 
       # regard two Compositions as equal if they have consist of the same

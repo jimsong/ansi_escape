@@ -8,7 +8,7 @@ module ANSIEscape
         end
       end
 
-      def apply(string)
+      def apply_to(string)
         "#{start_sequence}#{string}#{stop_sequence}"
       end
 

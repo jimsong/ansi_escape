@@ -21,11 +21,11 @@ RSpec.describe ANSIEscape::Effects::Composition do
     end
   end
 
-  describe '#apply' do
+  describe '#apply_to' do
     context 'with no effects provided' do
       it 'does nothing' do
         effect = ANSIEscape::Effects::Composition.new
-        result = effect.apply('foo bar baz')
+        result = effect.apply_to('foo bar baz')
         expect(result).to eq('foo bar baz')
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe ANSIEscape::Effects::Composition do
           red_text,
           green_background
         )
-        result = effect.apply('foo bar baz')
+        result = effect.apply_to('foo bar baz')
         expect(result).to eq("\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m")
       end
     end

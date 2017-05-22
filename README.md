@@ -27,14 +27,14 @@ Effects are defined in lib/ansi_escape/effects and can be applied to strings. Ex
 #### Underline
 ~~~
 effect = ANSIEscape::Effects::Underline.new
-effect.apply('foo bar baz')
+effect.apply_to('foo bar baz').to_s
  => "\e[4mfoo bar baz\e[24m" 
 ~~~
 
 #### TextColor
 ~~~
 effect = ANSIEscape::Effects::TextColor.new(:red)
-effect.apply('foo bar baz')
+effect.apply_to('foo bar baz').to_s
  => "\e[31mfoo bar baz\e[39m"
 ~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
@@ -42,7 +42,7 @@ Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:c
 #### BackgroundColor
 ~~~
 effect = ANSIEscape::Effects::BackgroundColor.new(:red)
-effect.apply('foo bar baz')
+effect.apply_to('foo bar baz').to_s
  => "\e[41mfoo bar baz\e[49m"
 ~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
@@ -54,7 +54,7 @@ underline = ANSIEscape::Effects::Underline.new
 red_text = ANSIEscape::Effects::TextColor.new(:red)
 green_background = ANSIEscape::Effects::BackgroundColor.new(:green)
 effect = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
-effect.apply('foo bar baz')
+effect.apply_to('foo bar baz').to_s
  => "\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m"
 ~~~
 
