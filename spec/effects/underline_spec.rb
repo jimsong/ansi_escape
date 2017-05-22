@@ -2,9 +2,17 @@ require 'spec_helper'
 
 RSpec.describe ANSIEscape::Effects::Underline do
   describe '#apply_to' do
+    let(:effect) { ANSIEscape::Effects::Underline.new }
+
     it 'applies underline' do
-      effect = ANSIEscape::Effects::Underline.new
       result = effect.apply_to('foo bar baz')
+      expect(result).to be_an(ANSIEscape::FormattedString)
+      expect(result.to_s).to eq("\e[4mfoo bar baz\e[24m")
+    end
+
+    it 'works with an ANSIEscape::FormattedString' do
+      fs = ANSIEscape::FormattedString.new('foo bar baz')
+      result = effect.apply_to(fs)
       expect(result).to be_an(ANSIEscape::FormattedString)
       expect(result.to_s).to eq("\e[4mfoo bar baz\e[24m")
     end

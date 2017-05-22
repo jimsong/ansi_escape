@@ -81,6 +81,10 @@ module ANSIEscape
       puts to_s
     end
 
+    def length
+      raw_text.length
+    end
+
     private
 
     def validate_range(start, stop)

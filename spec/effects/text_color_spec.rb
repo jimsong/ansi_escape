@@ -49,9 +49,17 @@ RSpec.describe ANSIEscape::Effects::TextColor do
   end
 
   describe '#apply_to' do
+    let(:effect) { ANSIEscape::Effects::TextColor.new(:red) }
+
     it 'applies specified color' do
-      effect = ANSIEscape::Effects::TextColor.new(:red)
       result = effect.apply_to('foo bar baz')
+      expect(result).to be_an(ANSIEscape::FormattedString)
+      expect(result.to_s).to eq("\e[31mfoo bar baz\e[39m")
+    end
+
+    it 'works with an ANSIEscape::FormattedString' do
+      fs = ANSIEscape::FormattedString.new('foo bar baz')
+      result = effect.apply_to(fs)
       expect(result).to be_an(ANSIEscape::FormattedString)
       expect(result.to_s).to eq("\e[31mfoo bar baz\e[39m")
     end

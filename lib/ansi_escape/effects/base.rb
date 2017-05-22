@@ -9,7 +9,14 @@ module ANSIEscape
       end
 
       def apply_to(string)
-        fs = FormattedString.new(string)
+        case string
+        when FormattedString
+          fs = string
+        when String
+          fs = FormattedString.new(string)
+        else
+          raise ArgumentError, 'Argument must be a String or ANSIEscape::FormattedString'
+        end
         fs.add_effect(self, 0, string.length - 1)
         fs
       end
