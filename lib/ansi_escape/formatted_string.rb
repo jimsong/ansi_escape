@@ -16,7 +16,6 @@ module ANSIEscape
       # TODO: deal with overlaps and conflicting effects! (e.g. new green text
       # range overlapping with an existing red text range)
       # TODO: range validation
-      # TODO: handle Compositions
       range.each do |i|
         @effects_map[i] ||= Set.new
         @effects_map[i].add(effect)

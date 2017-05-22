@@ -47,17 +47,6 @@ effect.apply_to('foo bar baz').to_s
 ~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
 
-#### Composition
-Simple effects can be composed into more complex ones:
-~~~
-underline = ANSIEscape::Effects::Underline.new
-red_text = ANSIEscape::Effects::TextColor.new(:red)
-green_background = ANSIEscape::Effects::BackgroundColor.new(:green)
-effect = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
-effect.apply_to('foo bar baz').to_s
- => "\e[4m\e[31m\e[42mfoo bar baz\e[24m\e[39m\e[49m"
-~~~
-
 ### FormattedString
 #### Example
 ~~~
