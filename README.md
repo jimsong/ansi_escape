@@ -20,16 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-Effects are defined in lib/ansi_escape/effects. Examples are shown below.
+### Effects
 
-### Underline
+Effects are defined in lib/ansi_escape/effects and can be applied to strings. Examples of how to do this are shown below.
+
+#### Underline
 ~~~~
 effect = ANSIEscape::Effects::Underline.new
 effect.apply('foo bar baz')
  => "\e[4mfoo bar baz\e[24m" 
 ~~~~
 
-### TextColor
+#### TextColor
 ~~~~
 effect = ANSIEscape::Effects::TextColor.new(:red)
 effect.apply('foo bar baz')
@@ -37,7 +39,7 @@ effect.apply('foo bar baz')
 ~~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
 
-### BackgroundColor
+#### BackgroundColor
 ~~~~
 effect = ANSIEscape::Effects::BackgroundColor.new(:red)
 effect.apply('foo bar baz')
@@ -45,7 +47,8 @@ effect.apply('foo bar baz')
 ~~~~
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
 
-### Composition
+#### Composition
+Simple effects can be composed into more complex ones:
 ~~~~
 underline = ANSIEscape::Effects::Underline.new
 red_text = ANSIEscape::Effects::TextColor.new(:red)
