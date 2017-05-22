@@ -11,7 +11,8 @@ module ANSIEscape
         effects.inject(string) { |s, effect| effect.apply(s) }
       end
 
-      # regard two Compositions as equal if they have consist of the same effects in the same order
+      # regard two Compositions as equal if they have consist of the same
+      # effects in the same order
       def ==(other)
         if !other.is_a?(Composition) || self.effects.length != other.effects.length
           return false
