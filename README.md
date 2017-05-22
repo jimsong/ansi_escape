@@ -68,10 +68,16 @@ When printed to the console, "bar" will be underlined, "oo ba" will have red tex
 Adds the specified effect to the given range of charater indexes. This can cause existing effects to be removed if conflicts arise.
 
 ##### remove_effect(effect, range)
-Removes the specified effect from the given range of character positions.
+Removes the specified effect from the given range of character indexes.
 
-##### effects_at(position)
-returns an array of the active effects at a particular position in the string. In the example above, effects_at(0) will return [], effects_at(5) will return [underline, red_text, and green_background]
+##### effects_at(index)
+Returns an array of the active effects at a particular index in the string. In the example above, effects_at(0) will return [], effects_at(5) will return `[underline, red_text, and green_background]`.
+
+##### to_s
+Outputs a string that can be printed to the terminal.
+
+##### print
+Prints the string to the terminal with formatting applied.
 
 ## Development
 

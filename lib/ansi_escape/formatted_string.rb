@@ -13,11 +13,14 @@ module ANSIEscape
     end
 
     def add_effect(effect, range)
-      # TODO: deal with overlaps and conflicting effects! (e.g. new green text
-      # range overlapping with an existing red text range)
       # TODO: range validation
       range.each do |i|
         @effects_map[i] ||= Set.new
+
+        # remove existing effects of the same class
+        # as an example, green text color will overwrite existing red text color
+        @effects_map[i].reject! { |existing_effect| existing_effect.class == effect.class }
+
         @effects_map[i].add(effect)
       end
     end
@@ -30,14 +33,10 @@ module ANSIEscape
       end
     end
 
-    # returns all the active effects at a given position in the string
+    # returns all the active effects at a given index in the string
     def effects_at(index)
-      effects = @effects_map[index]
-      if effects
-        effects.to_a
-      else
-        []
-      end
+      effects = @effects_map[index] || []
+      effects.to_a
     end
 
     def to_s
@@ -74,6 +73,10 @@ module ANSIEscape
       end
 
       result
+    end
+
+    def print
+      puts to_s
     end
   end
 end
