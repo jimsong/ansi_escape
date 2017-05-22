@@ -34,6 +34,10 @@ module ANSIEscape
       result
     end
 
+    def ranges_for(effect)
+      @effect_ranges[effect]
+    end
+
     def to_s
       start_sequences = {}
       stop_sequences = {}

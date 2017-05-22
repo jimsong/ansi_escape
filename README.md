@@ -83,6 +83,17 @@ _NOT YET IMPLEMENTED!_
 ##### effects_at(position)
 returns an array of the active effects at a particular position in the string. In the example above, effects_at(0) will return [], effects_at(5) will return [underline, red_text, and green_background]
 
+##### ranges_for(effect)
+returns an array of non-overlapping ranges for the given effect
+~~~
+underline = ANSIEscape::Effects::Underline.new
+fs = ANSIEscape::FormattedString.new('foo bar baz')
+fs.add_effect(underline, 0, 2)
+fs.add_effect(underline, 8, 10)
+fs.ranges_for(underline)
+ => [0..2, 8..10]
+~~~
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
