@@ -29,13 +29,12 @@ module ANSIEscape
 
     # returns all the active effects at a given position in the string
     def effects_at(position)
-      result = []
-      @effect_ranges.each_pair do |effect, ranges|
-        if ranges.any? { |range| range.include?(position) }
-          result << effect
-        end
+      effects = @effects_map[position]
+      if effects
+        effects.to_a
+      else
+        []
       end
-      result
     end
 
     def ranges_for(effect)
