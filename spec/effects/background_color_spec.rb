@@ -17,6 +17,11 @@ RSpec.describe ANSIEscape::Effects::BackgroundColor do
         effect = ANSIEscape::Effects::BackgroundColor.new(:red)
         expect(effect.color_code).to eq(41)
       end
+
+      it 'sets color_name' do
+        effect = ANSIEscape::Effects::BackgroundColor.new(:red)
+        expect(effect.color_name).to eq(:red)
+      end
     end
 
     context 'with color code provided' do
@@ -34,6 +39,11 @@ RSpec.describe ANSIEscape::Effects::BackgroundColor do
       it 'sets color_code' do
         effect = ANSIEscape::Effects::BackgroundColor.new(42)
         expect(effect.color_code).to eq(42)
+      end
+
+      it 'sets color_name' do
+        effect = ANSIEscape::Effects::BackgroundColor.new(42)
+        expect(effect.color_name).to eq(:green)
       end
     end
   end
