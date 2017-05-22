@@ -23,21 +23,21 @@ module ANSIEscape
     end
 
     def remove_effect(effect, range)
-      # TODO: implement!
+      # TODO: range validation
+      range.each do |i|
+        @effects_map[i] ||= Set.new
+        @effects_map[i].delete(effect)
+      end
     end
 
     # returns all the active effects at a given position in the string
-    def effects_at(position)
-      effects = @effects_map[position]
+    def effects_at(index)
+      effects = @effects_map[index]
       if effects
         effects.to_a
       else
         []
       end
-    end
-
-    def ranges_for(effect)
-      @effect_ranges[effect]
     end
 
     def to_s

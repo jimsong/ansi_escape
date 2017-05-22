@@ -29,14 +29,14 @@ RSpec.describe ANSIEscape::FormattedString do
       formatted_string.add_effect(green_background, 4..6)
     end
 
-    it 'returns an array of effects active at the given position' do
+    it 'returns an array of effects active at the given index' do
       active_effects = formatted_string.effects_at(5)
       expect(active_effects).to be_an(Array)
       expect(active_effects.size).to eq(3)
       expect(active_effects).to include(underline, red_text, green_background)
     end
 
-    it 'returns an empty array with no effects at the given position' do
+    it 'returns an empty array with no effects at the given index' do
       active_effects = formatted_string.effects_at(0)
       expect(active_effects).to eq([])
     end
