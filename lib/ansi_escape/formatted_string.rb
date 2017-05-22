@@ -11,15 +11,15 @@ module ANSIEscape
       @raw_text.dup # so no one can mutate the text and cause inconsistencies!
     end
 
-    def add_effect(effect, start, stop)
+    def add_effect(effect, range)
       # TODO: deal with overlaps and conflicting effects! (e.g. new green text range overlapping with an existing red text range)
       # TODO: range validation
       # TODO: handle Compositions
       @effect_ranges[effect] ||= []
-      @effect_ranges[effect] << (start..stop)
+      @effect_ranges[effect] << range
     end
 
-    def remove_effect(effect, start, stop)
+    def remove_effect(effect, range)
       # TODO: implement!
     end
 

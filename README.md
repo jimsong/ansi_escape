@@ -65,9 +65,9 @@ underline = ANSIEscape::Effects::Underline.new
 red_text = ANSIEscape::Effects::TextColor.new(:red)
 green_background = ANSIEscape::Effects::BackgroundColor.new(:green)
 fs = ANSIEscape::FormattedString.new('foo bar baz')
-fs.add_effect(underline, 4, 6)
-fs.add_effect(red_text, 1, 5)
-fs.add_effect(green_background, 5, 8)
+fs.add_effect(underline, 4..6)
+fs.add_effect(red_text, 1..5)
+fs.add_effect(green_background, 5..8)
 fs.to_s
  => "f\e[31moo \e[4mb\e[42ma\e[39mr\e[24m b\e[49maz"
 ~~~
@@ -75,9 +75,12 @@ When printed to the console, "bar" will be underlined, "oo ba" will have red tex
 
 #### Methods
 
-##### add_effect(effect, start, stop)
+##### add_effect(effect, range)
+Adds the specified effect to the given range of charater positions. This can cause existing effect ranges to be modified if any conflicts arise.
 
-##### remove_effect(effect, start, stop)
+##### remove_effect(effect, range)
+Removes the specified effect from the given range of character positions. This can cause existing effect ranges to be modified or deleted entirely.
+
 _NOT YET IMPLEMENTED!_
 
 ##### effects_at(position)
@@ -88,8 +91,8 @@ returns an array of non-overlapping ranges for the given effect
 ~~~
 underline = ANSIEscape::Effects::Underline.new
 fs = ANSIEscape::FormattedString.new('foo bar baz')
-fs.add_effect(underline, 0, 2)
-fs.add_effect(underline, 8, 10)
+fs.add_effect(underline, 0..2)
+fs.add_effect(underline, 8..10)
 fs.ranges_for(underline)
  => [0..2, 8..10]
 ~~~
