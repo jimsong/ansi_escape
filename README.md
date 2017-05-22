@@ -1,4 +1,4 @@
-# AnsiEscape
+# ANSIEscape
 
 This gem provides support for applying ANSI escape sequences to strings to format them for display in a terminal.
 
@@ -24,14 +24,14 @@ Effects are defined in lib/ansi_escape/effects. Examples are shown below.
 
 ### Underline
 ~~~~
-effect = AnsiEscape::Effects::Underline.new
+effect = ANSIEscape::Effects::Underline.new
 effect.apply('foo bar baz')
  => "\e[4mfoo bar baz\e[24m" 
 ~~~~
 
 ### TextColor
 ~~~~
-effect = AnsiEscape::Effects::TextColor.new(:red)
+effect = ANSIEscape::Effects::TextColor.new(:red)
 effect.apply('foo bar baz')
  => "\e[31mfoo bar baz\e[39m"
 ~~~~
@@ -39,7 +39,7 @@ Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:c
 
 ### BackgroundColor
 ~~~~
-effect = AnsiEscape::Effects::BackgroundColor.new(:red)
+effect = ANSIEscape::Effects::BackgroundColor.new(:red)
 effect.apply('foo bar baz')
  => "\e[41mfoo bar baz\e[49m"
 ~~~~
@@ -47,10 +47,10 @@ Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:c
 
 ### Composition
 ~~~~
-underline = AnsiEscape::Effects::Underline.new
-red_text = AnsiEscape::Effects::TextColor.new(:red)
-green_background = AnsiEscape::Effects::BackgroundColor.new(:green)
-effect = AnsiEscape::Effects::Composition.new(underline, red_text, green_background)
+underline = ANSIEscape::Effects::Underline.new
+red_text = ANSIEscape::Effects::TextColor.new(:red)
+green_background = ANSIEscape::Effects::BackgroundColor.new(:green)
+effect = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
 effect.apply('foo bar baz')
  => "\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m"
 ~~~~

@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-RSpec.describe AnsiEscape::Effects::Composition do
-  let(:underline) { AnsiEscape::Effects::Underline.new }
-  let(:red_text) { AnsiEscape::Effects::TextColor.new(:red) }
-  let(:green_background) { AnsiEscape::Effects::BackgroundColor.new(:green) }
+RSpec.describe ANSIEscape::Effects::Composition do
+  let(:underline) { ANSIEscape::Effects::Underline.new }
+  let(:red_text) { ANSIEscape::Effects::TextColor.new(:red) }
+  let(:green_background) { ANSIEscape::Effects::BackgroundColor.new(:green) }
 
   describe '.new' do
     it 'works with no arguments' do
-      expect { AnsiEscape::Effects::Composition.new }.to_not raise_error
+      expect { ANSIEscape::Effects::Composition.new }.to_not raise_error
     end
 
     it 'works with with a list of effects' do
       expect do
-        AnsiEscape::Effects::Composition.new(
+        ANSIEscape::Effects::Composition.new(
           underline,
           red_text,
           green_background
@@ -24,7 +24,7 @@ RSpec.describe AnsiEscape::Effects::Composition do
   describe '#apply' do
     context 'with no effects provided' do
       it 'does nothing' do
-        effect = AnsiEscape::Effects::Composition.new
+        effect = ANSIEscape::Effects::Composition.new
         result = effect.apply('foo bar baz')
         expect(result).to eq('foo bar baz')
       end
@@ -32,7 +32,7 @@ RSpec.describe AnsiEscape::Effects::Composition do
 
     context 'with a list of effects provided' do
       it 'composes the effects' do
-        effect = AnsiEscape::Effects::Composition.new(
+        effect = ANSIEscape::Effects::Composition.new(
           underline,
           red_text,
           green_background

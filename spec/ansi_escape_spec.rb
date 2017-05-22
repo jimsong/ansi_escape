@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe AnsiEscape do
+RSpec.describe ANSIEscape do
   it "has a version number" do
-    expect(AnsiEscape::VERSION).not_to be nil
+    expect(ANSIEscape::VERSION).not_to be nil
   end
 end

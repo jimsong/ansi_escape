@@ -1,4 +1,4 @@
-module AnsiEscape
+module ANSIEscape
   module Effects
     class TextColor < Base
       COLOR_CODES = {

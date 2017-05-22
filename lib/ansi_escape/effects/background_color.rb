@@ -1,4 +1,4 @@
-module AnsiEscape
+module ANSIEscape
   module Effects
     class BackgroundColor < Base
       COLOR_CODES = {

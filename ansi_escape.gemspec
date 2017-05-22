@@ -5,7 +5,7 @@ require "ansi_escape/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ansi_escape"
-  spec.version       = AnsiEscape::VERSION
+  spec.version       = ANSIEscape::VERSION
   spec.authors       = ["Jimmy Song"]
   spec.email         = ["jimsong@berkeley.edu"]
 

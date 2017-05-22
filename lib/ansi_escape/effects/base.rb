@@ -1,4 +1,4 @@
-module AnsiEscape
+module ANSIEscape
   module Effects
     class Base
       def initialize
