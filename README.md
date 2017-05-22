@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ### Effects
 
-Effects are defined in lib/ansi_escape/effects and can be applied to strings. Examples of how to do this are shown below.
+Effects are defined in lib/ansi_escape/effects and can be applied to strings. Calling apply_to on a string will return an ANSIEscape::FormattedString. Examples of how to do this are shown below.
 
 #### Underline
 ~~~
@@ -55,7 +55,7 @@ red_text = ANSIEscape::Effects::TextColor.new(:red)
 green_background = ANSIEscape::Effects::BackgroundColor.new(:green)
 effect = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
 effect.apply_to('foo bar baz').to_s
- => "\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m"
+ => "\e[4m\e[31m\e[42mfoo bar baz\e[24m\e[39m\e[49m"
 ~~~
 
 ### FormattedString
