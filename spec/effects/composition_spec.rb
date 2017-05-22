@@ -42,4 +42,38 @@ RSpec.describe ANSIEscape::Effects::Composition do
       end
     end
   end
+
+  describe '#==' do
+    context 'with an instance of another effect' do
+      it 'returns false' do
+        e1 = ANSIEscape::Effects::Composition.new
+        e2 = ANSIEscape::Effects::TextColor.new(:red)
+        expect(e1 == e2).to eq(false)
+      end
+    end
+
+    context 'with another instance composed of different effects' do
+      it 'returns false' do
+        e1 = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
+        e2 = ANSIEscape::Effects::Composition.new(underline, red_text)
+        expect(e1 == e2).to eq(false)
+      end
+    end
+
+    context 'with another instance composed of same effects in different order' do
+      it 'returns false' do
+        e1 = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
+        e2 = ANSIEscape::Effects::Composition.new(underline, green_background, red_text)
+        expect(e1 == e2).to eq(false)
+      end
+    end
+
+    context 'with another instance composed of same effects in same order' do
+      it 'returns true' do
+        e1 = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
+        e2 = ANSIEscape::Effects::Composition.new(underline, red_text, green_background)
+        expect(e1 == e2).to eq(true)
+      end
+    end
+  end
 end

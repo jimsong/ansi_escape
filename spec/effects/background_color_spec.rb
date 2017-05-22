@@ -55,4 +55,22 @@ RSpec.describe ANSIEscape::Effects::BackgroundColor do
       expect(result).to eq("\e[41mfoo bar baz\e[49m")
     end
   end
+
+  describe '#==' do
+    context 'with the same text color' do
+      it 'returns true' do
+        e1 = ANSIEscape::Effects::BackgroundColor.new(:magenta)
+        e2 = ANSIEscape::Effects::BackgroundColor.new(:magenta)
+        expect(e1 == e2).to eq(true)
+      end
+    end
+
+    context 'with another text color' do
+      it 'returns false' do
+        e1 = ANSIEscape::Effects::BackgroundColor.new(:magenta)
+        e2 = ANSIEscape::Effects::BackgroundColor.new(:yellow)
+        expect(e1 == e2).to eq(false)
+      end
+    end
+  end
 end

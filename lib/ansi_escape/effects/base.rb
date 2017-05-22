@@ -1,5 +1,6 @@
 module ANSIEscape
   module Effects
+    # abstract base class
     class Base
       def initialize
         if self.class == Base
@@ -17,6 +18,11 @@ module ANSIEscape
 
       def stop_sequence
         raise NotImplementedError
+      end
+
+      # consider two effects equal if their start sequences are the same
+      def ==(other)
+        start_sequence == other.start_sequence
       end
     end
   end
