@@ -9,7 +9,9 @@ module ANSIEscape
       end
 
       def apply_to(string)
-        "#{start_sequence}#{string}#{stop_sequence}"
+        fs = FormattedString.new(string)
+        fs.add_effect(self, 0..(string.length - 1))
+        fs
       end
 
       def start_sequence

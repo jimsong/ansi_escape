@@ -5,7 +5,8 @@ RSpec.describe ANSIEscape::Effects::Underline do
     it 'applies underline' do
       effect = ANSIEscape::Effects::Underline.new
       result = effect.apply_to('foo bar baz')
-      expect(result).to eq("\e[4mfoo bar baz\e[24m")
+      expect(result).to be_an(ANSIEscape::FormattedString)
+      expect(result.to_s).to eq("\e[4mfoo bar baz\e[24m")
     end
   end
 

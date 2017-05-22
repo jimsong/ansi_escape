@@ -52,7 +52,8 @@ RSpec.describe ANSIEscape::Effects::TextColor do
     it 'applies specified color' do
       effect = ANSIEscape::Effects::TextColor.new(:red)
       result = effect.apply_to('foo bar baz')
-      expect(result).to eq("\e[31mfoo bar baz\e[39m")
+      expect(result).to be_an(ANSIEscape::FormattedString)
+      expect(result.to_s).to eq("\e[31mfoo bar baz\e[39m")
     end
   end
 

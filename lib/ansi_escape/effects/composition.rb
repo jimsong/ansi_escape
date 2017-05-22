@@ -8,7 +8,11 @@ module ANSIEscape
       end
 
       def apply_to(string)
-        effects.inject(string) { |s, effect| effect.apply_to(s) }
+        fs = FormattedString.new(string)
+        effects.each do |effect|
+          fs.add_effect(effect, 0..(string.length - 1))
+        end
+        fs
       end
 
       # regard two Compositions as equal if they have consist of the same

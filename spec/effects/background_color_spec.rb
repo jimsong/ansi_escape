@@ -52,7 +52,8 @@ RSpec.describe ANSIEscape::Effects::BackgroundColor do
     it 'applies specified color' do
       effect = ANSIEscape::Effects::BackgroundColor.new(:red)
       result = effect.apply_to('foo bar baz')
-      expect(result).to eq("\e[41mfoo bar baz\e[49m")
+      expect(result).to be_an(ANSIEscape::FormattedString)
+      expect(result.to_s).to eq("\e[41mfoo bar baz\e[49m")
     end
   end
 

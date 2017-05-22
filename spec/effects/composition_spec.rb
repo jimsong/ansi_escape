@@ -26,7 +26,8 @@ RSpec.describe ANSIEscape::Effects::Composition do
       it 'does nothing' do
         effect = ANSIEscape::Effects::Composition.new
         result = effect.apply_to('foo bar baz')
-        expect(result).to eq('foo bar baz')
+        expect(result).to be_an(ANSIEscape::FormattedString)
+        expect(result.to_s).to eq('foo bar baz')
       end
     end
 
@@ -38,7 +39,8 @@ RSpec.describe ANSIEscape::Effects::Composition do
           green_background
         )
         result = effect.apply_to('foo bar baz')
-        expect(result).to eq("\e[42m\e[31m\e[4mfoo bar baz\e[24m\e[39m\e[49m")
+        expect(result).to be_an(ANSIEscape::FormattedString)
+        expect(result.to_s).to eq("\e[4m\e[31m\e[42mfoo bar baz\e[24m\e[39m\e[49m")
       end
     end
   end

@@ -57,7 +57,9 @@ module ANSIEscape
 
       positions.each do |position|
         if start_sequences[position]
-          result += raw_text[cursor_position..(position - 1)]
+          if cursor_position < position
+            result += raw_text[cursor_position..(position - 1)]
+          end
           start_sequences[position].each do |sequence|
             result += sequence
           end
