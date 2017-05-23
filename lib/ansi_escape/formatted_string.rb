@@ -1,5 +1,6 @@
 module ANSIEscape
   class FormattedString
+    # TODO: handle raw_text containing ANSI escape characters
     def initialize(raw_text)
       @raw_text = raw_text
 
