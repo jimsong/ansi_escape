@@ -50,7 +50,7 @@ effect.apply_to('foo bar baz').to_s
 Valid colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`
 
 ### FormattedString
-A `FormattedString` contains a raw string as well as all ANSI formatting effects applied to it. This gem does not extend or subclass the `String` class as a `FormattedString` object serves as a container and has substantially different behavior from a normal string.
+A `ANSIEscape::FormattedString` contains a raw string as well as all ANSI formatting effects applied to it. This gem does not extend or subclass the `String` class as a `ANSIEscape::FormattedString` object serves as a container and has substantially different behavior from a normal string.
 
 #### Example
 ~~~
